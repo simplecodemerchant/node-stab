@@ -39,7 +39,7 @@ function main(){
 
                 process.exit(1)
             }
-            headers_to_output.push(...determine_headers(l,output_headers, remove_headers))
+            headers_to_output.push(...determine_headers(l, output_headers, remove_headers))
 
             console.log(headers_to_output.join(delimiter))
             headers.push(...l)
