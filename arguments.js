@@ -27,7 +27,7 @@ module.exports = () => {
         }
     )
 
-    parser.addArgument([ '-^h' ],
+    parser.addArgument([ '-r' ],
         {
             help: 'Headers to remove from output',
             action: 'store',

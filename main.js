@@ -5,7 +5,7 @@ const path = require('path')
 const readline = require('readline')
 
 const args = require('./arguments')()
-const { zip } = require('./helpers')
+const { zip, determine_headers } = require('./helpers')
 
 function main(){
     const {
@@ -39,9 +39,11 @@ function main(){
 
                 process.exit(1)
             }
+            headers_to_output.push(...determine_headers(l,output_headers, remove_headers))
 
-            console.log(l.join(delimiter))
-            return headers.push(...l)
+            console.log(headers_to_output.join(delimiter))
+            headers.push(...l)
+            return
         }
 
         // Test if line data matches the user search
@@ -49,7 +51,7 @@ function main(){
         if (searches.test(ldict)){
 
             console.log(
-                headers.map(col => ldict[col]).join(args.delimiter)
+                headers_to_output.map(col => ldict[col]).join(args.delimiter)
             )
 
         }
