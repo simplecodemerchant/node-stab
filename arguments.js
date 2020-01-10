@@ -53,6 +53,14 @@ module.exports = () => {
         }
     )
 
+    parser.addArgument([ '-i', '--ignore-case' ],
+        {
+            help: 'Ignore case',
+            action: 'storeTrue',
+            dest: 'ignore'
+        }
+    )
+
     parser.addArgument([ 'file' ],
         {
             help: 'Delimited File'

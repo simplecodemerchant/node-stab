@@ -1,6 +1,10 @@
 const valid_op = '== === != !== ^ $'.split(' ')
 
-function check(lv, sv, op){
+function check(lv, sv, op, {ignore}){
+    if ( ignore ){
+        lv = lv.toLowerCase()
+        sv = sv.toLowerCase()
+    }
     switch (op){
         case ('=='):  { return lv == sv }
         case ('==='): { return lv === sv }
@@ -15,16 +19,17 @@ function check(lv, sv, op){
     }
 }
 
-function Searches(search_arg){
+function Searches(search_arg, { ignore }){
     const o = {}
     o.searches = null
+    o.ignore = ignore
 
     o.test = function(line){
         return this.searches.map(search => {
 
             return search.map(s => {
 
-                if (check(line[s.col], s.val, s.op)){
+                if (check(line[s.col], s.val, s.op, {ignore: this.ignore})){
                     return true
                 }
 

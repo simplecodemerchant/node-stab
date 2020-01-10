@@ -14,11 +14,12 @@ function main(){
         show_headers,
         user_searches,
         output_headers,
-        remove_headers
+        remove_headers,
+        ignore
     } = require('./arguments')()
 
-    const searches = require('./searches')(user_searches)
-
+    const searches = require('./searches')(user_searches, { ignore })
+    
     const headers = []
     const headers_to_output = []
     
@@ -39,6 +40,7 @@ function main(){
 
                 process.exit(1)
             }
+
             headers_to_output.push(...determine_headers(l, output_headers, remove_headers))
             headers.push(...l)
 
@@ -48,10 +50,10 @@ function main(){
 
         // Test if line data matches the user search
         const ldict = zip(headers, l)
-        if (searches.test(ldict)){
+        if (searches.test(ldict)) {
 
             console.log(
-                headers_to_output.map(col => ldict[col]).join(args.delimiter)
+                headers_to_output.map(col => ldict[col]).join(delimiter)
             )
 
         }
